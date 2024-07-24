@@ -1,26 +1,19 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { OnChangeJSON } from '@remirror/react'
+import { WysiwygEditor } from '@remirror/react-editors/wysiwyg'
+import { useState } from 'react'
 
-function App() {
+export default function App() {
+  const [json, setJson] = useState<unknown>(null)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div style={{ padding: 16 }}>
+        <WysiwygEditor placeholder="Enter text...">
+          <OnChangeJSON onChange={setJson} />
+        </WysiwygEditor>
+        <h1>JSON</h1>
+        <pre>{JSON.stringify(json, null, 2)}</pre>
+      </div>
+    </>
   )
 }
-
-export default App
